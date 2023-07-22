@@ -1,0 +1,14 @@
+﻿{
+  "AssemblyName": "NettleCrossingRestoration.dll",
+  "Author": "AlterAsc",
+  "DisplayName": "Restoration of Nettle's Crossing",
+  "EntryMethod": "NettleCrossingRestoration.Main.Load",
+  "GameVersion": "2.1.7",
+  "HomePage": "https://www.nexusmods.com/pathfinderkingmaker/mods/289",
+  "Id": "NettleCrossingRestoration",
+  "ManagerVersion": "0.23.0",
+  "Repository": "https://raw.githubusercontent.com/alterasc/NettleCrossingRestoration/main/Repository.json",
+  "Requirements": [],
+  "LoadAfter": [],
+  "Version": "1.0.0"
+}
