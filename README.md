@@ -5,7 +5,7 @@ Costs 50 BP and takes 10 days. Can be solved by Regent or Treasurer.
 
 Has the same conditions as Nettle's Curse research - you just need to kill Stag Lord and talk to Nettle afterwards.
 
-If you're installing this mid-game where you progressed past that point and project doesn't appear - use Bag of Tricks or Kingdom Resolution to uhlock flag `RiverCrossingAllowed`, this will make Crossing available.
+If you're installing this mid-game where you progressed past that point use button in UMM settings of the mod. After pressing it, re-enter Kingdom management interface.
 
 ## Installation
 1. Install Unity Mod Manager

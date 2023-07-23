@@ -1,4 +1,5 @@
 ﻿using Harmony12;
+using Kingmaker;
 using Kingmaker.Blueprints;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.EventConditionActionSystem.Conditions;
@@ -7,6 +8,7 @@ using Kingmaker.ElementsSystem;
 using Kingmaker.Kingdom;
 using Kingmaker.Kingdom.Actions;
 using Kingmaker.Kingdom.Blueprints;
+using Kingmaker.Kingdom.Tasks;
 using Kingmaker.Localization;
 using System;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace NettleCrossingRestoration
             var harmony = HarmonyInstance.Create(modEntry.Info.Id);
             ModEntry = modEntry;
             modEntry.OnToggle = OnToggle;
+            modEntry.OnGUI = OnGUI;
             harmony.PatchAll();
             return true;
         }
@@ -32,6 +35,27 @@ namespace NettleCrossingRestoration
             Enabled = value;
             return true;
         }
+        static void OnGUI(UnityModManager.ModEntry modEntry)
+        {
+            if (GUILayout.RepeatButton("Unlock Kingdom project (use if you're installing this mid playthrough)", GUILayout.ExpandWidth(false)))
+            {
+                if (Game.Instance == null || Game.Instance.Player == null) return;
+                var player = Game.Instance.Player;
+                if (!KingdomState.Founded) return;
+                var proj = ResourcesLibrary.TryGetBlueprint<BlueprintKingdomProject>("42e3f6af-ce48-474b-b435-5d14ebf12c9c");
+                var shrike = ResourcesLibrary.TryGetBlueprint<BlueprintRegion>("caacbcf9f6d6561459f526e584ded703");
+
+                RegionState rs = player.Kingdom.Regions.First(x => x.Blueprint == shrike);
+                KingdomTimelineManager kingdomTimelineManager = new();
+                if (KingdomState.Instance.EventHistory.Any((KingdomEventHistoryEntry e) => e.Event == proj) || KingdomState.Instance.ActiveEvents.Any((KingdomEvent e) => e.EventBlueprint == proj))
+                {
+                    return;
+                }
+                kingdomTimelineManager.StartEventInRegion(proj, rs, 0).CheckTriggerOnStart = false;
+            }
+
+        }
+
     }
 
     [HarmonyPatch(typeof(LibraryScriptableObject), nameof(LibraryScriptableObject.LoadDictionary))]
